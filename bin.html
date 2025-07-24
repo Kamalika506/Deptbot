@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deleted Messages - SSN Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                colors: {
+                    primary: '#0056a3',    // Dark blue
+                    secondary: '#d0e4f7',  // Light blue
+                    white: '#ffffff',
+                    gray: '#f8f9fa'
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #d0e4f7; /* Light blue background */
+            min-height: 100vh;
+        }
+        .content-box {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 86, 163, 0.1);
+        }
+    </style>
+</head>
+<body class="font-sans p-4">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="content-box mb-4 p-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-xl font-bold text-gray-800">Deleted Messages</h1>
+                <button id="logout-btn" 
+                        class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg">
+                    Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- Bin List -->
+        <div class="content-box p-6">
+            <ul id="bin-list" class="space-y-4">
+                <!-- Deleted messages will appear here -->
+                <template id="bin-template">
+                    <li class="p-4 border-b border-gray-100 last:border-0">
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="font-medium text-gray-800 question-text"></p>
+                                <p class="text-gray-600 answer-text mt-1"></p>
+                            </div>
+                            <span class="text-sm text-gray-400 timestamp"></span>
+                        </div>
+                    </li>
+                </template>
+            </ul>
+        </div>
+    </div>
+
+    <script src="/static/bin.js"></script>
+</body>
+</html>

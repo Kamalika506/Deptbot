@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat History - SSN Assistant</title>
+
+  <!-- Tailwind and FontAwesome -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Tailwind config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0056a3',
+            primary_hover: '#003d75',
+            secondary: '#d0e4f7',
+            white: '#ffffff',
+            gray: '#f8f9fa',
+            gray_hover: '#e5e7eb',
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- External Styles -->
+  <link rel="stylesheet" href="/static/history.css" />
+</head>
+<body class="font-sans p-4">
+  <div class="max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="content-box mb-4 p-4">
+      <div class="flex justify-between items-center">
+        <h1 class="text-xl font-bold text-gray-800">Chat History</h1>
+        <div class="flex gap-2">
+          <input type="date" id="dateInput" class="p-2 border border-gray-300 rounded-lg date-input focus:outline-none" />
+          <button onclick="filterByDate()"
+                  class="bg-primary text-white px-4 py-2 rounded-lg filter-btn flex items-center gap-2">
+            <i class="fas fa-filter"></i> Filter
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- History List -->
+    <div class="content-box p-6">
+      <ul id="history-list" class="space-y-4">
+        <template id="history-template">
+          <li class="p-4 border-b border-gray-100 last:border-0 history-item hover:bg-gray-50 rounded-lg transition-colors">
+            <div class="flex justify-between">
+              <div>
+                <p class="font-medium text-gray-800 question-text"></p>
+                <p class="text-gray-600 answer-text mt-1"></p>
+              </div>
+              <span class="text-sm text-gray-400 timestamp"></span>
+            </div>
+          </li>
+        </template>
+
+        <!-- Loading State -->
+        <div id="loading-state" class="text-center py-8">
+          <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
+          <p class="mt-2 text-gray-600">Loading your history...</p>
+        </div>
+
+        <!-- Empty State -->
+        <div id="empty-state" class="hidden text-center py-8">
+          <i class="fas fa-comment-slash text-4xl text-gray-300 mb-2"></i>
+          <p class="text-gray-600">No chat history found</p>
+          <p class="text-sm text-gray-400 mt-1">Your conversations will appear here</p>
+        </div>
+      </ul>
+    </div>
+  </div>
+
+  <!-- External Script -->
+  <script src="/static/history.js" defer></script>
+</body>
+</html>

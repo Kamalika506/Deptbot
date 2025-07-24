@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SSN College Assistant</title>
+
+  <!-- Tailwind and Font Awesome -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0056a3',
+            primary_hover: '#003d75',
+            secondary: '#d0e4f7',
+            accent: '#e67e22',     // Added accent color for consistency
+            accent_hover: '#c86a1a', // Added accent hover
+            white: '#ffffff',
+            gray: '#f8f9fa',
+            gray_hover: '#e5e7eb',
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="/static/styles.css" />  
+</head>
+<body class="font-sans flex items-center justify-center p-4 min-h-screen bg-secondary">
+  <div class="auth-box w-full max-w-md p-8">
+    <!-- Login Section -->
+    <div id="login-section">
+      <div class="text-center mb-8">
+        <img src="/static/ssn-logo.png" alt="SSN Logo" class="h-16 mx-auto mb-4" />
+        <h2 class="text-2xl font-bold text-gray-800">IT Department Assistant</h2>
+        <p class="text-gray-600">Sign in to continue</p>
+      </div>
+      <form id="login-form" class="space-y-4">
+        <div>
+          <input type="email" id="login-email" placeholder="Email" required 
+                 class="w-full p-3 border border-gray-300 rounded-lg input-field focus:outline-none focus:ring-2 focus:ring-primary" />
+        </div>
+        <div>
+          <input type="password" id="login-password" placeholder="Password" required 
+                 class="w-full p-3 border border-gray-300 rounded-lg input-field focus:outline-none focus:ring-2 focus:ring-primary" />
+        </div>
+        <button type="submit" 
+                class="w-full bg-primary text-white py-3 rounded-lg font-medium auth-btn hover:bg-primary_hover transition-colors">
+          Login
+        </button>
+      </form>
+      <p class="mt-4 text-center text-gray-600">
+        Don't have an account?
+        <button id="show-signup" class="text-primary font-medium toggle-btn hover:text-primary_hover">
+          Sign up
+        </button>
+      </p>
+    </div>
+
+    <!-- Signup Section -->
+    <div id="signup-section" class="hidden">
+      <div class="text-center mb-8">
+        <img src="/static/ssn-logo.png" alt="SSN Logo" class="h-16 mx-auto mb-4" />
+        <h2 class="text-2xl font-bold text-gray-800">Create Account</h2>
+        <p class="text-gray-600">Join SSN College Assistant</p>
+      </div>
+      <form id="signup-form" class="space-y-4">
+        <div>
+          <input type="email" id="signup-email" placeholder="Email" required 
+                 class="w-full p-3 border border-gray-300 rounded-lg input-field focus:outline-none focus:ring-2 focus:ring-primary" />
+        </div>
+        <div>
+          <input type="password" id="signup-password" placeholder="Password" required 
+                 class="w-full p-3 border border-gray-300 rounded-lg input-field focus:outline-none focus:ring-2 focus:ring-primary" />
+        </div>
+        <button type="submit" 
+                class="w-full bg-primary text-white py-3 rounded-lg font-medium auth-btn hover:bg-primary_hover transition-colors">
+          Sign Up
+        </button>
+      </form>
+      <p class="mt-4 text-center text-gray-600">
+        Already have an account?
+        <button id="show-login" class="text-primary font-medium toggle-btn hover:text-primary_hover">
+          Login
+        </button>
+      </p>
+    </div>
+  </div>
+
+
+  <!-- External Script -->
+  <script src="/static/app.js"></script>
+</body>
+</html>

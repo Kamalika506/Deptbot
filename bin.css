@@ -1,0 +1,30 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #1a1a40, #3a0ca3, #4361ee, #4cc9f0);
+    animation: aurora 10s infinite ease-in-out;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 400px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+}

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSN IT Department - Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border: none;
+        }
+        .feedback-item {
+            border-left: 4px solid #003d75;
+            transition: all 0.3s ease;
+        }
+        .feedback-item:hover {
+            transform: translateY(-2px);
+            background-color: #f8f9fa;
+        }
+        .rating-1 { border-left-color: #dc3545 !important; }
+        .rating-2 { border-left-color: #fd7e14 !important; }
+        .rating-3 { border-left-color: #ffc107 !important; }
+        .rating-4 { border-left-color: #198754 !important; }
+        .rating-5 { border-left-color: #20c997 !important; }
+
+        .navbar.bg-primary,
+        .card-header.bg-primary {
+            background-color: #003d75 !important;
+        }
+        
+        .btn-outline-light {
+            border-color: #ffffff;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-robot"></i> SSN IT Department Chatbot Admin
+            </a>
+            <button id="logout-btn" class="btn btn-outline-light">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </button>
+        </div>
+    </nav>
+
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <!-- Statistics Cards -->
+            <div class="col-md-3">
+                <div class="card stat-card">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="bi bi-people"></i> Total Users</h5>
+                        <h2 id="total-users" class="card-text">0</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="bi bi-chat-square-text"></i> Total Feedback</h5>
+                        <h2 id="total-feedback" class="card-text">0</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="bi bi-star"></i> Average Rating</h5>
+                        <h2 id="avg-rating" class="card-text">0.0</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="bi bi-exclamation-triangle"></i> Critical Issues</h5>
+                        <h2 id="critical-issues" class="card-text">0</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <!-- Users Section -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5><i class="bi bi-people-fill"></i> Registered Users</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Email</th>
+                                        <th>Joined</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="users-table"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feedback Filters -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5><i class="bi bi-funnel"></i> Feedback Filters</h5>
+                            <div>
+                                <button id="refresh-btn" class="btn btn-sm btn-light">
+                                    <i class="bi bi-arrow-clockwise"></i> Refresh
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Rating</label>
+                                <select id="rating-filter" class="form-select">
+                                    <option value="all">All Ratings</option>
+                                    <option value="1">1 Star (Poor)</option>
+                                    <option value="2">2 Stars (Fair)</option>
+                                    <option value="3">3 Stars (Good)</option>
+                                    <option value="4">4 Stars (Very Good)</option>
+                                    <option value="5">5 Stars (Excellent)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Time Period</label>
+                                <select id="time-filter" class="form-select">
+                                    <option value="all">All Time</option>
+                                    <option value="today">Today</option>
+                                    <option value="week">This Week</option>
+                                    <option value="month">This Month</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="feedback-stats" class="mb-3">
+                            <!-- Stats will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feedback List -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5><i class="bi bi-chat-left-text"></i> User Feedback</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="feedback-container">
+                            <!-- Feedback items will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load initial data
+            fetchData();
+            
+            // Set up event listeners
+            document.getElementById('logout-btn').addEventListener('click', logout);
+            document.getElementById('refresh-btn').addEventListener('click', fetchData);
+            document.getElementById('rating-filter').addEventListener('change', fetchFeedback);
+            document.getElementById('time-filter').addEventListener('change', fetchFeedback);
+        });
+
+        function fetchData() {
+            fetchUsers();
+            fetchStats();
+            fetchFeedback();
+        }
+
+        function fetchUsers() {
+            fetch('/admin/users')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('users-table');
+                    tableBody.innerHTML = data.users.map(user => `
+                        <tr>
+                            <td>${user.email}</td>
+                            <td>${user.signup_date || 'N/A'}</td>
+                        </tr>
+                    `).join('');
+                    document.getElementById('total-users').textContent = data.users.length;
+                });
+        }
+
+        function fetchStats() {
+            fetch('/admin/feedback_stats')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('total-feedback').textContent = data.total_feedback;
+                    document.getElementById('avg-rating').textContent = data.average_rating.toFixed(1);
+                    document.getElementById('critical-issues').textContent = data.rating_counts['1'] + data.rating_counts['2'];
+                    
+                    // Update stats card
+                    const statsHtml = `
+                        <div class="alert alert-info">
+                            <strong>Rating Distribution:</strong><br>
+                            ${[5,4,3,2,1].map(rating => `
+                                <div class="d-flex align-items-center mb-1">
+                                    <span class="me-2">${rating} ★</span>
+                                    <div class="progress flex-grow-1" style="height: 20px;">
+                                        <div class="progress-bar bg-${rating >= 4 ? 'success' : rating >= 3 ? 'warning' : 'danger'}" 
+                                             style="width: ${(data.rating_counts[rating] / data.total_feedback) * 100}%">
+                                            ${data.rating_counts[rating]}
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        ${data.common_issues.length > 0 ? `
+                            <div class="alert alert-warning">
+                                <strong>Common Issues:</strong>
+                                <ul class="mb-0">
+                                    ${data.common_issues.map(issue => `<li>${issue}</li>`).join('')}
+                                </ul>
+                            </div>
+                        ` : ''}
+                    `;
+                    document.getElementById('feedback-stats').innerHTML = statsHtml;
+                });
+        }
+
+        function fetchFeedback() {
+            const rating = document.getElementById('rating-filter').value;
+            const timePeriod = document.getElementById('time-filter').value;
+            
+            let url = '/admin/feedback';
+            const params = [];
+            if (rating !== 'all') params.push(`rating=${rating}`);
+            if (timePeriod !== 'all') params.push(`time=${timePeriod}`);
+            if (params.length > 0) url += `?${params.join('&')}`;
+            
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('feedback-container');
+                    if (data.feedback.length === 0) {
+                        container.innerHTML = '<div class="alert alert-info">No feedback found with these filters.</div>';
+                        return;
+                    }
+                    
+                    container.innerHTML = data.feedback.map(fb => `
+                        <div class="feedback-item p-3 mb-3 rating-${fb.rating}">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <strong>${fb.user_email}</strong>
+                                    <span class="ms-2 text-muted">${fb.timestamp}</span>
+                                </div>
+                                <div class="text-${fb.rating >= 4 ? 'success' : fb.rating >= 3 ? 'warning' : 'danger'}">
+                                    ${'★'.repeat(fb.rating)}${'☆'.repeat(5 - fb.rating)}
+                                </div>
+                            </div>
+                            ${fb.question ? `<div class="mt-2"><strong>Question:</strong> ${fb.question}</div>` : ''}
+                            <div class="mt-2"><strong>Feedback:</strong> ${fb.comments || 'No comments provided'}</div>
+                        </div>
+                    `).join('');
+                });
+        }
+
+        function logout() {
+            fetch('/logout', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = '/';
+                    }
+                });
+        }
+    </script>
+</body>
+</html>

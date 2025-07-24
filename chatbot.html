@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SSN College Assistant</title>
+
+  <!-- TailwindCSS and Font Awesome -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0056a3',
+            primary_hover: '#003d75',
+            secondary: '#d0e4f7',
+            accent: '#e67e22',
+            accent_hover: '#c86a1a',
+            white: '#ffffff',
+            gray: '#f8f9fa',
+            gray_hover: '#e5e7eb',
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="/static/chatbot.css" />
+</head>
+<body class="font-sans p-4">
+  <div class="max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="content-box mb-4 p-4">
+      <div class="flex justify-between items-center">
+        <h1 class="text-xl font-bold text-gray-800">SSN-IT Assistant</h1>
+        <div class="flex gap-2">
+          <button onclick="window.location.href='/history'"
+            class="bg-primary hover:bg-primary_hover text-white px-4 py-2 rounded-lg flex items-center gap-2 action-btn">
+            <i class="fas fa-history"></i> History
+          </button>
+          <button onclick="showFeedbackModal()"
+            class="bg-accent hover:bg-accent_hover text-white px-4 py-2 rounded-lg flex items-center gap-2 action-btn">
+            <i class="fas fa-comment-alt"></i> Feedback
+          </button>
+          <button id="logout-btn"
+            class="bg-gray-200 hover:bg-gray_hover text-gray-800 px-4 py-2 rounded-lg flex items-center gap-2 action-btn">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Area -->
+    <div class="content-box p-4 mb-4">
+      <div id="chat-box" class="h-96 overflow-y-auto mb-4 space-y-2 p-2">
+        <!-- Welcome message -->
+        <div class="bot-bubble chat-bubble">
+          <p>Hello! I'm the SSN College Assistant. How can I help you today?</p>
+          <div class="source-tag">System message</div>
+        </div>
+      </div>
+      <div id="recommendations-container" class="recommendations-container" style="display: none;">
+        <!-- Recommendations will appear here -->
+      </div>
+      <div class="flex gap-2">
+        <input id="user-message" type="text" placeholder="Ask about SSN College..."
+          class="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          onkeypress="handleKeyPress(event)" />
+        <button id="send-message"
+          class="bg-primary hover:bg-primary_hover text-white px-6 py-3 rounded-lg flex items-center gap-2 action-btn">
+          <i class="fas fa-paper-plane"></i> Send
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feedback Modal -->
+  <div id="feedback-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="content-box p-6 w-full max-w-md">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold">Provide Feedback</h3>
+        <button onclick="hideFeedbackModal()" class="text-gray-500 hover:text-gray-700 action-btn">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="mb-4">
+        <label class="block mb-2">How would you rate this response?</label>
+        <div class="flex justify-center gap-2 mb-4">
+          <button onclick="setRating(1)" class="rating-star text-2xl hover:text-accent action-btn" data-rating="1">☆</button>
+          <button onclick="setRating(2)" class="rating-star text-2xl hover:text-accent action-btn" data-rating="2">☆</button>
+          <button onclick="setRating(3)" class="rating-star text-2xl hover:text-accent action-btn" data-rating="3">☆</button>
+          <button onclick="setRating(4)" class="rating-star text-2xl hover:text-accent action-btn" data-rating="4">☆</button>
+          <button onclick="setRating(5)" class="rating-star text-2xl hover:text-accent action-btn" data-rating="5">☆</button>
+        </div>
+      </div>
+      <div class="mb-4">
+        <label for="feedback-comments" class="block mb-2">Additional comments (optional):</label>
+        <textarea id="feedback-comments" rows="3"
+          class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-primary"></textarea>
+      </div>
+      <button onclick="submitFeedback()"
+        class="w-full bg-primary hover:bg-primary_hover text-white py-2 rounded-lg action-btn">
+        Submit Feedback
+      </button>
+    </div>
+  </div>
+
+  <!-- External Script -->
+  <script src="/static/chatbot.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+body {
+  background-color: #d0e4f7; /* Light blue background */
+  min-height: 100vh;
+}
+
+.auth-box {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 86, 163, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auth-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 86, 163, 0.15);
+}
+
+.auth-btn {
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.auth-btn:hover {
+  background-color: #003d75;
+}
+
+.auth-btn:active {
+  transform: scale(0.98);
+}
+
+.toggle-btn {
+  transition: color 0.2s ease;
+}
+
+.toggle-btn:hover {
+  color: #003d75;
+  text-decoration: underline;
+}
+
+.input-field {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-field:focus {
+  border-color: #0056a3;
+  box-shadow: 0 0 0 3px rgba(0, 86, 163, 0.2);
+}
