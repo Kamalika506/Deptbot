@@ -1,4 +1,4 @@
-# IT Assitant
+# IT Assistant
 IT assistant:
       Developed a departmental information assistant that provides instant query 
 resolution, semantic search–based document retrieval, and collects user 
