@@ -1,10 +1,3 @@
-# IT Assistant
-IT assistant:
-      Developed a departmental information assistant that provides instant query 
-resolution, semantic search–based document retrieval, and collects user 
-feedback to improve accuracy and usability for students and faculty.
-
-
 # 🤖 Deptbot — Departmental Information & Semantic Search Assistant
 
 **Deptbot** is an interactive departmental information assistant designed for students and faculty. It provides instant automated query resolution, semantic search–based document retrieval, interaction history management, and a dedicated admin interface to collect feedback for continuous accuracy improvements.
